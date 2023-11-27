@@ -31,10 +31,8 @@ public class DetallePedidoService {
     }
 
     public DetallePedido addDetallePedido(DetallePedido detallePedido,Long id_pedido,Long id_producto) {
-        Pedido pedido=new Pedido();
-        Producto producto=new Producto();
-        pedido= pedidoInterface.findById(id_pedido).orElse(null);
-        producto=productoInterface.findById(id_producto).orElse(null);
+        Pedido pedido = pedidoInterface.findById(id_pedido).orElse(null);
+        Producto producto = productoInterface.findById(id_producto).orElse(null);
         if(pedido !=null && producto !=null){
             detallePedido.setPedido(pedido);
             detallePedido.setProducto(producto);
@@ -46,15 +44,16 @@ public class DetallePedidoService {
 
     }
 
-    public DetallePedido updateDetallePedido(DetallePedido detallePedido) {
+    public DetallePedido updateDetallePedido(DetallePedido detallePedido,Long id_pedido,Long id_producto) {
         Optional<DetallePedido> detallePedidoOptional = detallePedidoInterface.findById(detallePedido.getId_detalle_pedido());
-
-        if (detallePedidoOptional.isPresent()) {
+        Pedido pedido=pedidoInterface.findById(id_pedido).orElse(null);
+        Producto producto=productoInterface.findById(id_producto).orElse(null);
+        if (detallePedidoOptional.isPresent() && pedido!=null && producto !=null) {
             DetallePedido detallePedidoExistente = detallePedidoOptional.get();
             detallePedidoExistente.setCantidad(detallePedido.getCantidad());
             detallePedidoExistente.setValorTotal(detallePedido.getValorTotal());
-            detallePedidoExistente.setPedido(detallePedido.getPedido());
-            detallePedidoExistente.setProducto(detallePedido.getProducto());
+            detallePedidoExistente.setPedido(pedido);
+            detallePedidoExistente.setProducto(producto);
 
 
             return detallePedidoInterface.save(detallePedidoExistente);

@@ -42,4 +42,9 @@ public class CategoriaService {
             return null;
         }
     }
+    public Categoria deleteCategoria(Long id_categoria) {
+        Optional<Categoria> categoriaOptional = categoriaInterface.findById(id_categoria);
+        categoriaOptional.ifPresent(categoria -> categoriaInterface.deleteById(id_categoria));
+        return categoriaOptional.orElse(null);
+    }
 }

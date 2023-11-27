@@ -52,4 +52,9 @@ public class TiendaService {
             return null;
         }
     }
+    public Tienda deleteTienda(Long id_tienda) {
+        Optional<Tienda> tiendaOptional = tiendaInterface.findById(id_tienda);
+        tiendaOptional.ifPresent(tienda -> tiendaInterface.deleteById(id_tienda));
+        return tiendaOptional.orElse(null);
+    }
 }
