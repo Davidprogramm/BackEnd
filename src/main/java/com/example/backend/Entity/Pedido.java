@@ -32,6 +32,63 @@ public class Pedido {
     @JsonIgnore
     private Tienda id_sucursal;
 
+    public Pedido() {
+    }
 
+    public Pedido(Long id_pedido, Date fecha, String forma_pago, String estado, Vendedor id_vendedor, Tienda id_sucursal) {
+        this.id_pedido = id_pedido;
+        this.fecha = fecha;
+        this.forma_pago = forma_pago;
+        this.estado = estado;
+        this.id_vendedor = id_vendedor;
+        this.id_sucursal = id_sucursal;
+    }
 
+    public Long getId_pedido() {
+        return id_pedido;
+    }
+
+    public void setId_pedido(Long id_pedido) {
+        this.id_pedido = id_pedido;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getForma_pago() {
+        return forma_pago;
+    }
+
+    public void setForma_pago(String forma_pago) {
+        this.forma_pago = forma_pago;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Vendedor getId_vendedor() {
+        return id_vendedor;
+    }
+
+    public void setId_vendedor(Vendedor id_vendedor) {
+        this.id_vendedor = id_vendedor;
+    }
+
+    public Tienda getId_sucursal() {
+        return id_sucursal;
+    }
+
+    public void setId_sucursal(Tienda id_sucursal) {
+        this.id_sucursal = id_sucursal;
+    }
 }

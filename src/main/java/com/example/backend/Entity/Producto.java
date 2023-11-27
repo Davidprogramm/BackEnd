@@ -33,5 +33,81 @@ public class Producto {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<DetalleProveedor> detallesProveedores = new HashSet<>();
 
+    public Producto() {
+    }
 
+    public Producto(Long id_producto, String nombre, String descripcion, double precio, int stock, Categoria categoria, Descuento descuento, Set<DetalleProveedor> detallesProveedores) {
+        this.id_producto = id_producto;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
+        this.categoria = categoria;
+        this.descuento = descuento;
+        this.detallesProveedores = detallesProveedores;
+    }
+
+    public Long getId_producto() {
+        return id_producto;
+    }
+
+    public void setId_producto(Long id_producto) {
+        this.id_producto = id_producto;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Descuento getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Descuento descuento) {
+        this.descuento = descuento;
+    }
+
+    public Set<DetalleProveedor> getDetallesProveedores() {
+        return detallesProveedores;
+    }
+
+    public void setDetallesProveedores(Set<DetalleProveedor> detallesProveedores) {
+        this.detallesProveedores = detallesProveedores;
+    }
 }
