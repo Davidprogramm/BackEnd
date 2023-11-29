@@ -35,7 +35,7 @@ public class Tienda {
     @Column(nullable = false, length = 100)
     private String email;
 
-    @OneToMany(mappedBy = "id_sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id_tienda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Pedido> pedidos = new HashSet<>();
 
     public Tienda() {

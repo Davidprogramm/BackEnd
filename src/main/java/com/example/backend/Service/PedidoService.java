@@ -72,4 +72,8 @@ public class PedidoService {
     public void deletePedido(Long id) {
         pedidoInterface.deleteById(id);
     }
+
+    public List<Object[]>findAllPedidos(){
+        return  pedidoInterface.findAllPedidos();
+    }
 }

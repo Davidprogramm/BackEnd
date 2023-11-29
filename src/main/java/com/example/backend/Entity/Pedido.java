@@ -28,9 +28,9 @@ public class Pedido {
     private Vendedor id_vendedor;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_sucursal")
+    @JoinColumn(name = "id_tienda")
     @JsonIgnore
-    private Tienda id_sucursal;
+    private Tienda id_tienda;
 
     public Pedido() {
     }
@@ -41,7 +41,7 @@ public class Pedido {
         this.forma_pago = forma_pago;
         this.estado = estado;
         this.id_vendedor = id_vendedor;
-        this.id_sucursal = id_sucursal;
+        this.id_tienda = id_tienda;
     }
 
     public Long getId_pedido() {
@@ -85,10 +85,10 @@ public class Pedido {
     }
 
     public Tienda getId_sucursal() {
-        return id_sucursal;
+        return id_tienda;
     }
 
     public void setId_sucursal(Tienda id_sucursal) {
-        this.id_sucursal = id_sucursal;
+        this.id_tienda = id_sucursal;
     }
 }

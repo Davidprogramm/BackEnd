@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = {"*"})
@@ -69,5 +66,26 @@ public class PedidoControlador {
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/dellatepedido")
+    public List<Map<String, Object>> datospedido(){
+        List<Object[]> lista=pedidoService.findAllPedidos();
+        List<Map<String, Object>> json=new ArrayList<Map<String, Object>>();
+        for(Object[] objects: lista){
+            Map<String, Object> datos= new HashMap<>();
+            datos.put("id_pedido",objects[0]);
+            datos.put("estado",objects[1]);
+            datos.put("fecha",objects[2]);
+            datos.put("forma_pago",objects[3]);
+            datos.put("id_vendedor",objects[4]);
+            datos.put("id_tienda",objects[5]);
+            json.add(datos);
+        }
+        for(Map<String, Object> j : json){
+            System.out.println(j);
+        }
+        return json;
+
     }
 }
