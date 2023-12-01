@@ -1,7 +1,9 @@
 package com.example.backend.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -24,18 +26,18 @@ public class Pedido {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_vendedor", referencedColumnName = "id_vendedor", nullable = false)
-    @JsonIgnore
+    @JsonIgnore    // Cambiado de JsonBackReference a JsonManagedReference
     private Vendedor id_vendedor;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_tienda")
+    @JoinColumn(name = "id_tienda", referencedColumnName = "id_tienda", nullable = false)
     @JsonIgnore
     private Tienda id_tienda;
 
     public Pedido() {
     }
 
-    public Pedido(Long id_pedido, Date fecha, String forma_pago, String estado, Vendedor id_vendedor, Tienda id_sucursal) {
+    public Pedido(Long id_pedido, Date fecha, String forma_pago, String estado, Vendedor id_vendedor, Tienda id_tienda) {
         this.id_pedido = id_pedido;
         this.fecha = fecha;
         this.forma_pago = forma_pago;
@@ -84,11 +86,11 @@ public class Pedido {
         this.id_vendedor = id_vendedor;
     }
 
-    public Tienda getId_sucursal() {
+    public Tienda getId_tienda() {
         return id_tienda;
     }
 
-    public void setId_sucursal(Tienda id_sucursal) {
-        this.id_tienda = id_sucursal;
+    public void setId_tienda(Tienda id_tienda) {
+        this.id_tienda = id_tienda;
     }
 }

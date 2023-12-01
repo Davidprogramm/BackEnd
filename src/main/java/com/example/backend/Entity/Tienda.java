@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -36,7 +37,7 @@ public class Tienda {
     private String email;
 
     @OneToMany(mappedBy = "id_tienda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Pedido> pedidos = new HashSet<>();
+    private Set<Pedido> pedidos;
 
     public Tienda() {
     }

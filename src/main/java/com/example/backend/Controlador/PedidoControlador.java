@@ -30,24 +30,26 @@ public class PedidoControlador {
         }
     }
 
-    @PostMapping("/addpedido/{id_vendedor}/{id_sucursal}")
-    public ResponseEntity<?> addPedido(@RequestBody Pedido pedido, @PathVariable Long id_vendedor, @PathVariable Long id_sucursal) {
+    @PostMapping("/addpedido/{id_vendedor}/{id_tienda}")
+    public ResponseEntity<?> addPedido(@RequestBody Pedido pedido,@PathVariable Long id_vendedor, @PathVariable Long id_tienda) {
         Map<String, Object> response = new HashMap<>();
         try {
-            return new ResponseEntity<>(pedidoService.addPedido(pedido, id_vendedor, id_sucursal), HttpStatus.CREATED);
-        } catch (DataAccessException e) {
+            return new ResponseEntity<>(pedidoService.addPedido(pedido, id_vendedor, id_tienda), HttpStatus.CREATED);
+
+        }catch (DataAccessException e){
             response.put("mensaje", "Error al Agregar");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
+
     }
 
 
-    @PostMapping("/updatepedido/{id_vendedor}/{id_sucursal}")
-    public ResponseEntity<?> updatePedido(@RequestBody Pedido pedido, @PathVariable Long id_vendedor, @PathVariable Long id_sucursal) {
+    @PostMapping("/updatepedido/{id_vendedor}/{id_tienda}")
+    public ResponseEntity<?> updatePedido(@RequestBody Pedido pedido, @PathVariable Long id_vendedor, @PathVariable Long id_tienda) {
         Map<String, Object> response = new HashMap<>();
         try {
-            return new ResponseEntity<>(pedidoService.updatePedido(pedido, id_vendedor, id_sucursal), HttpStatus.CREATED);
+            return new ResponseEntity<>(pedidoService.updatePedido(pedido, id_vendedor, id_tienda), HttpStatus.CREATED);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al Actualizar");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -56,16 +58,10 @@ public class PedidoControlador {
     }
 
     @DeleteMapping("/deletepedido/{id}")
-    public ResponseEntity<?> deletePedido(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        try {
-            pedidoService.deletePedido(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (DataAccessException e) {
-            response.put("mensaje", "Error al Borrar");
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-        }
+    public Pedido deletePedido(@PathVariable Long id) {
+        Pedido pedido= pedidoService.findById(id).orElse(null);
+         pedidoService.deletePedido(id);
+         return  pedido;
     }
 
     @GetMapping("/dellatepedido")
@@ -82,9 +78,7 @@ public class PedidoControlador {
             datos.put("id_tienda",objects[5]);
             json.add(datos);
         }
-        for(Map<String, Object> j : json){
-            System.out.println(j);
-        }
+
         return json;
 
     }

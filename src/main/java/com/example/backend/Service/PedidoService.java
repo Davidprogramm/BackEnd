@@ -34,35 +34,35 @@ public class PedidoService {
         return pedidoInterface.findById(id);
     }
 
-    public Pedido addPedido(Pedido pedido, Long id_vendedor, Long id_sucursal) {
-        Vendedor vendedor = new Vendedor();
-        Tienda sucursal = new Tienda();
+    public Pedido addPedido(Pedido pedido,Long id_vendedor, Long id_tienda) {
+        Vendedor vendedor = vendedorInterface.findById(id_vendedor).orElse(null);
+        Tienda tienda = tiendaInterface.findById(id_tienda).orElse(null);
 
-        vendedor = vendedorInterface.findById(id_vendedor).orElse(null);
-        sucursal = tiendaInterface.findById(id_sucursal).orElse(null);
+if(vendedor !=null &&   tienda != null){
+    pedido.setId_tienda(tienda);
+    pedido.setId_vendedor(vendedor);
+    pedidoInterface.save(pedido);
 
-        if (vendedor != null && sucursal != null) {
-            pedido.setId_vendedor(vendedor);
-            pedido.setId_sucursal(sucursal);
-            return pedidoInterface.save(pedido);
-        } else {
-            return null;
-        }
+}
+        return pedido;
+
+
     }
 
 
-    public Pedido updatePedido(Pedido pedido, Long id_tienda,Long id_vendedor) {
-        Optional<Pedido> pedidoOptional = pedidoInterface.findById(pedido.getId_pedido());
+    public Pedido updatePedido(Pedido pedido, Long id_vendedor,Long id_tienda) {
+
+       Pedido pedidoExistente = pedido;
+
        Vendedor vendedor= vendedorInterface.findById(id_vendedor).orElse(null);
        Tienda tienda=tiendaInterface.findById(id_tienda).orElse(null);
 
-        if (pedidoOptional.isPresent() && vendedor!=null && tienda !=null) {
-            Pedido pedidoExistente = pedidoOptional.get();
+        if (pedidoExistente!=null && vendedor!=null && tienda !=null) {
             pedidoExistente.setFecha(pedido.getFecha());
             pedidoExistente.setForma_pago(pedido.getForma_pago());
             pedidoExistente.setEstado(pedido.getEstado());
             pedidoExistente.setId_vendedor(vendedor);
-            pedidoExistente.setId_sucursal(tienda);
+            pedidoExistente.setId_tienda(tienda);
             return pedidoInterface.save(pedidoExistente);
         } else {
             return null;
@@ -70,7 +70,9 @@ public class PedidoService {
     }
 
     public void deletePedido(Long id) {
+        Pedido pedido=pedidoInterface.findById(id).orElse(null);
         pedidoInterface.deleteById(id);
+
     }
 
     public List<Object[]>findAllPedidos(){
