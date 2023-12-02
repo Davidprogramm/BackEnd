@@ -18,6 +18,17 @@
             this.productoService = productoService;
         }
 
+        @GetMapping("/descuentoproducto/{id_producto}")
+        public  List<Map<String,Object>> descuentoProducto(@PathVariable String id_producto){
+            List<Object[]> lista=productoService.descuentoProducto(id_producto);
+            List<Map<String, Object>> json=new ArrayList<Map<String, Object>>();
+            for(Object[] objects: lista){
+                Map<String, Object> datos= new HashMap<>();
+                datos.put("porcentaje",objects[0]);
+                json.add(datos);
+            }
+            return json;
+        }
         @GetMapping("/listproductos")
         public List<Map<String, Object>>listProductos() {
             List<Object[]> lista=productoService.findAllProductos();
@@ -80,6 +91,19 @@
             }
         }
 
+        @PostMapping("/updatestock")
+        public ResponseEntity<?> updateStock(@RequestBody Map<String, Object> update) {
+            Map<String, Object> response = new HashMap<>();
+            try {
+                int stock = (int) update.get("stock");
+                Long id_producto = Long.parseLong(update.get("id_producto").toString());
+                return new ResponseEntity<>(productoService.updateStock(stock, id_producto), HttpStatus.OK);
+            } catch (DataAccessException e) {
+                response.put("mensaje", "Error al Actualizar Producto");
+                response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
+        }
         @DeleteMapping("/deleteproducto/{id}")
         public ResponseEntity<?> deleteProducto(@PathVariable Long id) {
             Map<String, Object> response = new HashMap<>();

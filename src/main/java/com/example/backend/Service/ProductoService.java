@@ -31,6 +31,14 @@ public class ProductoService {
         return productoInterface.findAllProductos();
     }
 
+    public Producto updateStock(int i, Long id_producto){
+        Producto producto=findById(id_producto).orElse(null);
+        producto.setStock(i);
+        productoInterface.save(producto);
+        return  producto;
+
+    }
+    public List<Object[]>descuentoProducto(String id_producto){return productoInterface.findDescuentoProducto(id_producto);}
 
     public List<Producto> allProductos() {
         return productoInterface.findAll();
