@@ -12,7 +12,7 @@ public class DetallePedido {
     @Column(nullable = false)
     private int cantidad;
     @Column(nullable = false)
-    private double valorTotal;
+    private int valor_total;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido", nullable = false)
     private Pedido pedido;
@@ -23,10 +23,10 @@ public class DetallePedido {
     public DetallePedido() {
     }
 
-    public DetallePedido(Long id_detalle_pedido, int cantidad, double valorTotal, Pedido pedido, Producto producto) {
+    public DetallePedido(Long id_detalle_pedido, int cantidad, int valor_total, Pedido pedido, Producto producto) {
         this.id_detalle_pedido = id_detalle_pedido;
         this.cantidad = cantidad;
-        this.valorTotal = valorTotal;
+        this.valor_total = valor_total;
         this.pedido = pedido;
         this.producto = producto;
     }
@@ -47,12 +47,12 @@ public class DetallePedido {
         this.cantidad = cantidad;
     }
 
-    public double getValorTotal() {
-        return valorTotal;
+    public int getValorTotal() {
+        return valor_total;
     }
 
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setValorTotal(int valorTotal) {
+        this.valor_total = valorTotal;
     }
 
     public Pedido getPedido() {

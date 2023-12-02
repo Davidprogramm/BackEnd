@@ -18,7 +18,7 @@ public class Descuento {
     private String nombre;
 
     @Column(nullable = false)
-    private double porcentaje;
+    private int porcentaje;
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
@@ -34,7 +34,7 @@ public class Descuento {
     public Descuento() {
     }
 
-    public Descuento(Long id_descuento, String nombre, double porcentaje, Date fechaInicio, Date fechaFin, Set<Producto> productos) {
+    public Descuento(Long id_descuento, String nombre, int porcentaje, Date fechaInicio, Date fechaFin, Set<Producto> productos) {
         this.id_descuento = id_descuento;
         this.nombre = nombre;
         this.porcentaje = porcentaje;
@@ -59,11 +59,11 @@ public class Descuento {
         this.nombre = nombre;
     }
 
-    public double getPorcentaje() {
+    public int getPorcentaje() {
         return porcentaje;
     }
 
-    public void setPorcentaje(double porcentaje) {
+    public void setPorcentaje(int porcentaje) {
         this.porcentaje = porcentaje;
     }
 

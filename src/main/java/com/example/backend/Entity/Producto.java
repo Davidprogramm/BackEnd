@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,15 +20,20 @@ public class Producto {
     private String descripcion;
 
     @Column(nullable = false)
-    private double precio;
+    private int precio;
     @Column(nullable = false)
     private int stock;
 
+    @Column(nullable = false, length = 200)
+    private String unidad_venta;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false)
+    @JsonIgnore
     private Categoria categoria;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_descuento")
+    @JsonIgnore
     private Descuento descuento;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -36,12 +42,21 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Long id_producto, String nombre, String descripcion, double precio, int stock, Categoria categoria, Descuento descuento, Set<DetalleProveedor> detallesProveedores) {
+    public String getUnidad_venta() {
+        return unidad_venta;
+    }
+
+    public void setUnidad_venta(String unidad_venta) {
+        this.unidad_venta = unidad_venta;
+    }
+
+    public Producto(Long id_producto, String nombre, String descripcion, int precio, int stock, String unidad_venta, Categoria categoria, Descuento descuento, Set<DetalleProveedor> detallesProveedores) {
         this.id_producto = id_producto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
+        this.unidad_venta = unidad_venta;
         this.categoria = categoria;
         this.descuento = descuento;
         this.detallesProveedores = detallesProveedores;
@@ -71,11 +86,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 

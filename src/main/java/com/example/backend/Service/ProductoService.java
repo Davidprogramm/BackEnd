@@ -27,6 +27,10 @@ public class ProductoService {
         this.descuentoInterface=descuentoInterface;
     }
 
+    public List<Object[]> findAllProductos(){
+        return productoInterface.findAllProductos();
+    }
+
 
     public List<Producto> allProductos() {
         return productoInterface.findAll();
@@ -49,8 +53,11 @@ public class ProductoService {
     }
 
 
-    public Producto updateProducto(Producto producto) {
+    public Producto updateProducto(Producto producto, Long id_categoria, Long id_descuento) {
         Optional<Producto> productoOptional = productoInterface.findById(producto.getId_producto());
+
+        Categoria categoria=categoriaInterface.findById(id_categoria).orElse(null);
+        Descuento descuento=descuentoInterface.findById(id_descuento).orElse(null);
 
         if (productoOptional.isPresent()) {
             Producto productoExistente = productoOptional.get();
@@ -58,15 +65,13 @@ public class ProductoService {
             productoExistente.setDescripcion(producto.getDescripcion());
             productoExistente.setPrecio(producto.getPrecio());
             productoExistente.setStock(producto.getStock());
-            productoExistente.setCategoria(producto.getCategoria());
-            productoExistente.setDescuento(producto.getDescuento());
+            productoExistente.setCategoria(categoria);
+            productoExistente.setDescuento(descuento);
             productoExistente.setDetallesProveedores(producto.getDetallesProveedores());
 
-            // Puedes manejar la actualización de otras propiedades si es necesario
 
             return productoInterface.save(productoExistente);
         } else {
-            // Manejar el caso en el que el producto no exista
             return null;
         }
     }
