@@ -36,8 +36,7 @@ public class Producto {
     @JsonIgnore
     private Descuento descuento;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<DetalleProveedor> detallesProveedores = new HashSet<>();
+
 
     public Producto() {
     }
@@ -50,7 +49,7 @@ public class Producto {
         this.unidad_venta = unidad_venta;
     }
 
-    public Producto(Long id_producto, String nombre, String descripcion, int precio, int stock, String unidad_venta, Categoria categoria, Descuento descuento, Set<DetalleProveedor> detallesProveedores) {
+    public Producto(Long id_producto, String nombre, String descripcion, int precio, int stock, String unidad_venta, Categoria categoria, Descuento descuento) {
         this.id_producto = id_producto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -59,7 +58,6 @@ public class Producto {
         this.unidad_venta = unidad_venta;
         this.categoria = categoria;
         this.descuento = descuento;
-        this.detallesProveedores = detallesProveedores;
     }
 
     public Long getId_producto() {
@@ -118,11 +116,6 @@ public class Producto {
         this.descuento = descuento;
     }
 
-    public Set<DetalleProveedor> getDetallesProveedores() {
-        return detallesProveedores;
-    }
 
-    public void setDetallesProveedores(Set<DetalleProveedor> detallesProveedores) {
-        this.detallesProveedores = detallesProveedores;
-    }
+
 }

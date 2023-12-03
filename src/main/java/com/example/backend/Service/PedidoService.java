@@ -26,6 +26,8 @@ public class PedidoService {
         this.vendedorInterface=vendedorInterface;
     }
 
+
+
     public List<Pedido> allPedidos() {
         return pedidoInterface.findAll();
     }
@@ -78,4 +80,7 @@ if(vendedor !=null &&   tienda != null){
     public List<Object[]>findAllPedidos(){
         return  pedidoInterface.findAllPedidos();
     }
+
+    public List <Object[]>findDetallesPedido(String id_pedido){return pedidoInterface.findDetallesPedidos(id_pedido);}
+    public List <Object[]>factura(String id_pedido ){return pedidoInterface.factura(id_pedido);}
 }

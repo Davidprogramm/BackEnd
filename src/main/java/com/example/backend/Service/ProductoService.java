@@ -75,7 +75,6 @@ public class ProductoService {
             productoExistente.setStock(producto.getStock());
             productoExistente.setCategoria(categoria);
             productoExistente.setDescuento(descuento);
-            productoExistente.setDetallesProveedores(producto.getDetallesProveedores());
 
 
             return productoInterface.save(productoExistente);

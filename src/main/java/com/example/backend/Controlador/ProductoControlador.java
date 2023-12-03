@@ -29,7 +29,9 @@
             }
             return json;
         }
-        @GetMapping("/listproductos")
+
+
+            @GetMapping("/listproductos")
         public List<Map<String, Object>>listProductos() {
             List<Object[]> lista=productoService.findAllProductos();
             List<Map<String, Object>> json=new ArrayList<Map<String, Object>>();

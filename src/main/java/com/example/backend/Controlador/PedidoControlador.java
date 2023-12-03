@@ -64,7 +64,39 @@ public class PedidoControlador {
          return  pedido;
     }
 
-    @GetMapping("/dellatepedido")
+    @GetMapping("/allpedidodetalle/{id_pedido}")
+    public List<Map<String, Object>> allPedidoDetalle(@PathVariable String id_pedido){
+        List<Object[]> lista=pedidoService.findDetallesPedido(id_pedido);
+        List<Map<String, Object>> json=new ArrayList<Map<String, Object>>();
+        for(Object[] objects: lista){
+            Map<String, Object> datos= new HashMap<>();
+            datos.put("cantidad",objects[0]);
+            datos.put("valor_total",objects[1]);
+            datos.put("nombre",objects[2]);
+            json.add(datos);
+        }
+
+        return json;
+
+    }
+    @GetMapping("/factura/{id_pedido}")
+    public List<Map<String, Object>> factura(@PathVariable String id_pedido){
+        List<Object[]> lista=pedidoService.factura(id_pedido);
+        List<Map<String, Object>> json=new ArrayList<Map<String, Object>>();
+        for(Object[] objects: lista){
+            Map<String, Object> datos= new HashMap<>();
+            datos.put("id_pedido",objects[0]);
+            datos.put("valor",objects[1]);
+
+            json.add(datos);
+        }
+        return json;
+
+    }
+
+
+
+        @GetMapping("/dellatepedido")
     public List<Map<String, Object>> datospedido(){
         List<Object[]> lista=pedidoService.findAllPedidos();
         List<Map<String, Object>> json=new ArrayList<Map<String, Object>>();
